@@ -1,0 +1,18 @@
+current directory: /Users/yoshi/git/my_partner_rails/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+/Users/yoshi/.rbenv/versions/3.2.1/bin/ruby -I /Users/yoshi/.rbenv/versions/3.2.1/lib/ruby/3.2.0 extconf.rb
+creating Makefile
+
+current directory: /Users/yoshi/git/my_partner_rails/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230911-90065-xvsmyi sitelibdir\=./.gem.20230911-90065-xvsmyi clean
+
+current directory: /Users/yoshi/git/my_partner_rails/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230911-90065-xvsmyi sitelibdir\=./.gem.20230911-90065-xvsmyi
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/yoshi/git/my_partner_rails/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230911-90065-xvsmyi sitelibdir\=./.gem.20230911-90065-xvsmyi install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20230911-90065-xvsmyi/bootsnap
+
+current directory: /Users/yoshi/git/my_partner_rails/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.16.0/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20230911-90065-xvsmyi sitelibdir\=./.gem.20230911-90065-xvsmyi clean
