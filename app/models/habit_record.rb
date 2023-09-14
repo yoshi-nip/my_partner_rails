@@ -22,4 +22,5 @@
 class HabitRecord < ApplicationRecord
   belongs_to :habit
   belongs_to :day_article
+
 end

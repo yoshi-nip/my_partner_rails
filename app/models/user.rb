@@ -36,4 +36,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  has_many :monthly_promises
+  has_many :day_articles
+  has_many :monthly_articles
+  has_many :weekly_articles
+  has_many :habits
 end
