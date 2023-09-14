@@ -3,7 +3,6 @@
 # Table name: habit_records
 #
 #  id             :bigint           not null, primary key
-#  date           :date
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  day_article_id :bigint           not null
