@@ -43,9 +43,12 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "factory_bot_rails"
+  gem "faker"
   gem "pry-byebug", "~> 3.10", ">= 3.10.1"
   gem "pry-doc", "~> 1.4"
   gem "pry-rails", "~> 0.3.9"
+  gem "rspec-rails", "~> 6.0.0"
   gem "rubocop-performance", "~> 1.19"
   gem "rubocop-rails", "~> 2.21"
   gem "rubocop-rspec", "~> 2.24"
