@@ -10,9 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_14_042544) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_14_103241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "day_articles", force: :cascade do |t|
+    t.date "day"
+    t.string "body"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_day_articles_on_user_id"
+  end
+
+  create_table "habit_records", force: :cascade do |t|
+    t.date "date"
+    t.bigint "habit_id", null: false
+    t.bigint "day_article_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_article_id"], name: "index_habit_records_on_day_article_id"
+    t.index ["habit_id"], name: "index_habit_records_on_habit_id"
+  end
+
+  create_table "habits", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_habits_on_user_id"
+  end
+
+  create_table "monthly_articles", force: :cascade do |t|
+    t.date "month"
+    t.string "body"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_monthly_articles_on_user_id"
+  end
+
+  create_table "monthly_promises", force: :cascade do |t|
+    t.date "month"
+    t.string "body"
+    t.string "if_then_plan"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_monthly_promises_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -37,4 +84,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_042544) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "weekly_articles", force: :cascade do |t|
+    t.date "week"
+    t.string "body"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_weekly_articles_on_user_id"
+  end
+
+  add_foreign_key "day_articles", "users"
+  add_foreign_key "habit_records", "day_articles"
+  add_foreign_key "habit_records", "habits"
+  add_foreign_key "habits", "users"
+  add_foreign_key "monthly_articles", "users"
+  add_foreign_key "monthly_promises", "users"
+  add_foreign_key "weekly_articles", "users"
 end
