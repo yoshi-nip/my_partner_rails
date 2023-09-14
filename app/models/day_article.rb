@@ -19,5 +19,5 @@
 #
 class DayArticle < ApplicationRecord
   belongs_to :user
-  has_many :habit_records
+  has_many :habit_records, dependent: :destroy
 end
