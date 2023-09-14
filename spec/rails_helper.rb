@@ -63,4 +63,6 @@ RSpec.configure do |config|
 
   # FactoryBot のメソッドを省略した形で呼び出すことができるように
   config.include FactoryBot::Syntax::Methods
+  # Fakerの言語設定
+  Faker::Config.locale = :ja
 end
