@@ -18,6 +18,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Habit < ApplicationRecord
+  validates :start_date, presence: true ,uniqueness: true
+  validates :body, presence: true
+
   belongs_to :user
   has_many :habit_records, dependent: :destroy
 end

@@ -19,5 +19,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class MonthlyPromise < ApplicationRecord
+  validates :month, presence: true ,uniqueness: true
+  validates :body, presence: true
+  validates :if_then_plan, presence: true
+
   belongs_to :user
 end

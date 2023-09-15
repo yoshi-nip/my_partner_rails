@@ -37,6 +37,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  validates :name, presence: true , length: { maximum: 15 }
+
   has_many :monthly_promises, dependent: :destroy
   has_many :day_articles, dependent: :destroy
   has_many :monthly_articles, dependent: :destroy

@@ -18,5 +18,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class MonthlyArticle < ApplicationRecord
+  validates :month, presence: true ,uniqueness: true
+  validates :body, presence: true
   belongs_to :user
 end
