@@ -12,13 +12,14 @@
 # Indexes
 #
 #  index_weekly_articles_on_user_id  (user_id)
+#  index_weekly_articles_on_week     (week) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
 #
 class WeeklyArticle < ApplicationRecord
-  validates :week, presence: true ,uniqueness: true
+  validates :week, presence: true, uniqueness: true
   validates :body, presence: true
   belongs_to :user
 end

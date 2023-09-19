@@ -12,6 +12,7 @@
 #
 # Indexes
 #
+#  index_monthly_promises_on_month    (month) UNIQUE
 #  index_monthly_promises_on_user_id  (user_id)
 #
 # Foreign Keys
@@ -19,7 +20,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class MonthlyPromise < ApplicationRecord
-  validates :month, presence: true ,uniqueness: true
+  validates :month, presence: true, uniqueness: true
   validates :body, presence: true
   validates :if_then_plan, presence: true
 

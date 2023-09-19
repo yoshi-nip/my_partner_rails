@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  index_day_articles_on_day      (day) UNIQUE
 #  index_day_articles_on_user_id  (user_id)
 #
 # Foreign Keys
@@ -18,7 +19,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class DayArticle < ApplicationRecord
-  validates :day, presence: true ,uniqueness: true
+  validates :day, presence: true, uniqueness: true
   validates :body, presence: true
   belongs_to :user
   has_many :habit_records, dependent: :destroy
