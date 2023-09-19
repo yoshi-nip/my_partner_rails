@@ -11,13 +11,17 @@
 #
 # Indexes
 #
-#  index_habits_on_user_id  (user_id)
+#  index_habits_on_start_date  (start_date) UNIQUE
+#  index_habits_on_user_id     (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
 #
 class Habit < ApplicationRecord
+  validates :start_date, presence: true, uniqueness: true
+  validates :body, presence: true
+
   belongs_to :user
   has_many :habit_records, dependent: :destroy
 end
