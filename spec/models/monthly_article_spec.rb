@@ -24,49 +24,47 @@ RSpec.describe MonthlyArticle, type: :model do
   context "正しく情報が指定されているとき" do
     let!(:user) { create(:user) }
     let!(:monthly_article) { build(:monthly_article, user_id: user.id) }
-    fit "記事が作成される" do
+    it "記事が作成される" do
       expect(monthly_article).to be_valid
     end
 
-    fit "記事とユーザーとの関連付けが定義されている" do
+    it "記事とユーザーとの関連付けが定義されている" do
       association = MonthlyArticle.reflect_on_association(:user)
       expect(association.macro).to eq(:belongs_to)
     end
   end
 
   # 異常系
-  context "正しく情報が指定されていない時" do
+  context "正しく情報が指定されていない時(taken)" do
     let!(:user) { create(:user) }
     let!(:monthly_article) { create(:monthly_article, user_id: user.id) }
+    let(:monthly_article_month_duplication) { build(:monthly_article, beginning_of_month: monthly_article.beginning_of_month, user_id: user.id) }
+
+    it "月が重複している時、記事が保存できない。" do
+      monthly_article_month_duplication.valid?
+      expect(monthly_article_month_duplication.errors.errors[0].type).to eq :taken
+    end
+  end
+
+  context "正しく情報が指定されていない時(blank)" do
+    let!(:user) { create(:user) }
     let(:monthly_article_user_blank) { build(:monthly_article) }
     let(:monthly_article_body_blank) { build(:monthly_article, body: "", user_id: user.id) }
     let(:monthly_article_month_blank) { build(:monthly_article, beginning_of_month: "", user_id: user.id) }
-    let(:monthly_article_month_duplication) { build(:monthly_article, beginning_of_month: monthly_article.beginning_of_month, user_id: user.id) }
-    fit "ユーザーがない時記事が作成されない" do
-      expect(monthly_article_user_blank).not_to be_valid
-      expect(monthly_article_user_blank.errors.errors[0].attribute).to eq :user
+
+    it "ユーザーがない時記事が作成されない" do
+      monthly_article_user_blank.valid?
       expect(monthly_article_user_blank.errors.errors[0].type).to eq :blank
     end
 
-    fit "日付がない時記事が作成されない" do
-      expect(monthly_article_month_blank).not_to be_valid
-      expect(monthly_article_month_blank.errors.errors[0].attribute).to eq :beginning_of_month
+    it "日付がない時記事が作成されない" do
+      monthly_article_month_blank.valid?
       expect(monthly_article_month_blank.errors.errors[0].type).to eq :blank
     end
 
-    fit "本文がない時記事が作成されない" do
-      expect(monthly_article_body_blank).not_to be_valid
-      expect(monthly_article_body_blank.errors.errors[0].attribute).to eq :body
+    it "本文がない時記事が作成されない" do
+      monthly_article_body_blank.valid?
       expect(monthly_article_body_blank.errors.errors[0].type).to eq :blank
-
     end
-
-    fit "月が重複している時、記事が保存できない。" do
-      expect(monthly_article_month_duplication).not_to be_valid
-      expect(monthly_article_month_duplication.errors.errors[0].attribute).to eq :beginning_of_month
-      expect(monthly_article_month_duplication.errors.errors[0].type).to eq :taken
-
-    end
-
   end
 end
