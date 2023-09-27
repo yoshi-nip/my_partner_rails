@@ -1,4 +1,4 @@
-class Api::V1::DayArticlesController < ApplicationController
+class Api::V1::DayArticlesController < Api::V1::BaseApiController
   def index
     day_articles = DayArticle.all
     render json: day_articles
