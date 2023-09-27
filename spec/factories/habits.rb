@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_habits_on_start_date  (start_date) UNIQUE
-#  index_habits_on_user_id     (user_id)
+#  index_habits_on_name     (name) UNIQUE
+#  index_habits_on_user_id  (user_id)
 #
 # Foreign Keys
 #
@@ -20,5 +20,7 @@
 #
 FactoryBot.define do
   factory :habit do
+    name { Faker::Hobby.activity }
+    start_date { Faker::Date.between(from: "2020-01-01", to: "2022-12-31") }
   end
 end

@@ -24,7 +24,7 @@ RSpec.describe DayArticle, type: :model do
   context "正しく情報が指定されているとき" do
     let!(:user) { create(:user) }
     let!(:day_article) { build(:day_article, user_id: user.id) }
-    it "ユーザーが作成される" do
+    it "記事が作成される" do
       expect(day_article).to be_valid
     end
 
