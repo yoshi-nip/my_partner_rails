@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_26_082450) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_27_031354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,13 +54,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_082450) do
   end
 
   create_table "monthly_promises", force: :cascade do |t|
-    t.date "month"
+    t.date "beginning_of_month"
     t.string "body"
     t.string "if_then_plan"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["month"], name: "index_monthly_promises_on_month", unique: true
+    t.index ["beginning_of_month"], name: "index_monthly_promises_on_beginning_of_month", unique: true
     t.index ["user_id"], name: "index_monthly_promises_on_user_id"
   end
 
