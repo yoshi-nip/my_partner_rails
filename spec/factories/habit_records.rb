@@ -20,5 +20,7 @@
 #
 FactoryBot.define do
   factory :habit_record do
+    habit
+    day_article
   end
 end
