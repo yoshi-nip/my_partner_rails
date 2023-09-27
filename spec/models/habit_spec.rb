@@ -48,7 +48,7 @@ RSpec.describe Habit, type: :model do
 
   context "正しく情報が指定されていない時()" do
     let!(:user) { create(:user) }
-    let(:habit_user_blank) { build(:habit) }
+    let(:habit_user_blank) { build(:habit, user_id: nil) }
     let(:habit_name_blank) { build(:habit, name: "", user_id: user.id) }
     let(:habit_start_date_blank) { build(:habit, start_date: "", user_id: user.id) }
     it "ユーザーがない時記事が作成されない" do

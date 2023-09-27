@@ -22,5 +22,6 @@ FactoryBot.define do
   factory :habit do
     name { Faker::Hobby.activity }
     start_date { Faker::Date.between(from: "2020-01-01", to: "2022-12-31") }
+    user
   end
 end
