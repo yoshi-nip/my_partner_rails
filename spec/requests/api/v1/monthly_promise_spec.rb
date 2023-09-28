@@ -6,7 +6,9 @@ RSpec.describe "Api::V1::MonthlyPromises", type: :request do
 
     context "/api/v1/monthly_promisesのルートの時" do
       before do
-        create_list(:monthly_promise, 3)
+        3.times do |n|
+          create(:monthly_article, beginning_of_month: "2022-#{1 + n}-1")
+        end
         subject
       end
 
