@@ -123,4 +123,23 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
       end
     end
   end
+
+  describe "DELETE /destroy" do
+    subject { delete(api_v1_day_article_path(day_article)) }
+    let!(:day_article) { create(:day_article, user: current_user) }
+    let!(:current_user) { create(:user) }
+
+    before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+
+    context "ログインユーザーの場合、記事が削除される" do
+      it "現在のユーザをもとに記事が削除される" do
+        # リクエストを送信
+        subject
+        # HTTPステータスが正常なことを検証　204-deleteやput時に返ってくることのあるステータスz
+        expect(response).to have_http_status(204)
+        # データベース上で記事が削除されたことを検証
+        expect(DayArticle.find_by(id: day_article.id)).to be_nil
+      end
+    end
+  end
 end
