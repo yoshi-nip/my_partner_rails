@@ -49,7 +49,7 @@ RSpec.describe MonthlyPromise, type: :model do
 
   context "正しく情報が指定されていない時(blank)" do
     let!(:user) { create(:user) }
-    let(:monthly_promise_user_blank) { build(:monthly_promise) }
+    let(:monthly_promise_user_blank) { build(:monthly_promise, user_id: nil) }
     let(:monthly_promise_body_blank) { build(:monthly_promise, body: "", user_id: user.id) }
     let(:monthly_promise_if_then_plan_blank) { build(:monthly_promise, if_then_plan: "", user_id: user.id) }
     let(:monthly_promise_month_blank) { build(:monthly_promise, beginning_of_month: "", user_id: user.id) }

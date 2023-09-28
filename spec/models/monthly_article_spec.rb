@@ -48,7 +48,7 @@ RSpec.describe MonthlyArticle, type: :model do
 
   context "正しく情報が指定されていない時(blank)" do
     let!(:user) { create(:user) }
-    let(:monthly_article_user_blank) { build(:monthly_article) }
+    let(:monthly_article_user_blank) { build(:monthly_article, user_id: nil) }
     let(:monthly_article_body_blank) { build(:monthly_article, body: "", user_id: user.id) }
     let(:monthly_article_month_blank) { build(:monthly_article, beginning_of_month: "", user_id: user.id) }
 
