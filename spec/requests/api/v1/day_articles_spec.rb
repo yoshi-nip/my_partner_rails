@@ -126,6 +126,7 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
 
   describe "DELETE /destroy" do
     subject { delete(api_v1_day_article_path(day_article)) }
+
     let!(:day_article) { create(:day_article, user: current_user) }
     let!(:current_user) { create(:user) }
 
@@ -136,7 +137,7 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
         # リクエストを送信
         subject
         # HTTPステータスが正常なことを検証　204-deleteやput時に返ってくることのあるステータスz
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(:no_content)
         # データベース上で記事が削除されたことを検証
         expect(DayArticle.find_by(id: day_article.id)).to be_nil
       end
