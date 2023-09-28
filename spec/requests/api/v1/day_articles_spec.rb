@@ -95,4 +95,32 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
       end
     end
   end
+
+  describe "PUT /update" do
+    subject { put(api_v1_day_article_path(day_article), params: day_articles_params) }
+
+    let!(:day_article) { create(:day_article, user: current_user) }
+    let!(:current_user) { create(:user) }
+
+    before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+
+    context "ログインユーザーの時、適切なパラメータをもとに記事が更新される" do
+      let(:day_articles_params) { { day_article: { body: "新しいテキスト" } } }
+
+      it "現在のユーザをもとに記事が更新できる" do
+        subject
+        res = JSON.parse(response.body)
+        expect(response).to have_http_status(:ok)
+        expect(day_article.body).not_to eq "新しいテキスト"
+        expect(res["body"]).to eq "新しいテキスト"
+      end
+    end
+
+    context "不適切なパラメータでリクエストを送った時" do
+      let(:day_articles_params) { { title: "新しいタイトル" } } # paramsの形式がおかしい
+      it "エラーになる" do
+        expect { subject }.to raise_error ActionController::ParameterMissing
+      end
+    end
+  end
 end
