@@ -68,4 +68,31 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
       end
     end
   end
+
+  describe "POST/create" do
+    subject { post(api_v1_day_articles_path, params: day_articles_params) }
+
+    let!(:current_user) { create(:user) }
+
+    before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+
+    context "ログインユーザーの時、適切なパラメータをもとに記事が作成される" do
+      let(:day_articles_params) { { day_article: attributes_for(:day_article) } }
+      it "現在のユーザをもとに記事が作成できる" do
+        subject
+        res = JSON.parse(response.body)
+        expect(DayArticle.last.user_id).to eq(current_user.id)
+        expect(response).to have_http_status(:created)
+        expect(res["day"]).to eq day_articles_params[:day_article][:day].strftime("%Y-%m-%d")
+        expect(res["body"]).to eq day_articles_params[:day_article][:body]
+      end
+    end
+
+    context "正しくないパラメータでリクエストを送った時" do
+      let(:day_articles_params) { attributes_for(:day_article) }
+      it "エラーになる" do
+        expect { subject }.to raise_error ActionController::ParameterMissing
+      end
+    end
+  end
 end

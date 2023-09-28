@@ -6,7 +6,7 @@ class Api::V1::DayArticlesController < Api::V1::BaseApiController
   end
 
   def create
-    day_article = DayArticle.new(day_article_params)
+    day_article = current_user.day_articles.build(day_article_params)
     if day_article.save
       render json: day_article, status: :created
     else
@@ -33,4 +33,11 @@ class Api::V1::DayArticlesController < Api::V1::BaseApiController
     day_article.destroy!
     head :no_content
   end
+
+  private
+
+    # Storong Parameter
+    def day_article_params
+      params.require(:day_article).permit(:body, :day)
+    end
 end
