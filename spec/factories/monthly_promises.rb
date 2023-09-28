@@ -24,5 +24,6 @@ FactoryBot.define do
     beginning_of_month { Faker::Date.between(from: "2020-01-01", to: "2022-12-31").beginning_of_month }
     body { Faker::Lorem.paragraphs(number: 2).join(" ") }
     if_then_plan { Faker::Lorem.paragraphs(number: 2).join(" ") }
+    user
   end
 end

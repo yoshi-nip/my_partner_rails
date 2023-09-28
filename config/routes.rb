@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :day_articles, only: [:index, :create, :show, :update, :destroy]
+      resources :monthly_articles, only: [:index, :create, :show, :update, :destroy]
+      resources :monthly_promises, only: [:index, :create, :show, :update, :destroy]
+      resources :habits, only: [:index, :create, :show, :update, :destroy]
     end
   end
 end
