@@ -29,7 +29,7 @@ class Api::V1::DayArticlesController < Api::V1::BaseApiController
   end
 
   def destroy
-    day_article = DayArticle.find(params[:id])
+    day_article = current_user.day_articles.find(params[:id])
     day_article.destroy!
     head :no_content
   end
