@@ -20,7 +20,7 @@ class Api::V1::DayArticlesController < Api::V1::BaseApiController
   end
 
   def update
-    day_article = DayArticle.find(params[:id])
+    day_article = current_user.day_articles.find(params[:id])
     if day_article.update(day_article_params)
       render json: day_article
     else
