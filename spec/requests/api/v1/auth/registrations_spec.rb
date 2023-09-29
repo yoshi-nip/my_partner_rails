@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   describe "POST /api/v1/auth" do
     subject { post(api_v1_user_registration_path, params: user_params) }
-    #正常系
+
+    # 正常系
     context "適切なパラメータが送信されたとき" do
       let(:user_params) { { registration: attributes_for(:user) } }
       it "新規ユーザーが作られる" do
@@ -24,7 +25,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       end
     end
 
-    #異常系
+    # 異常系
     context "不適切なパラメータが送れた時" do
       let(:user_params) { attributes_for(:user) }
       it "エラーが返ってくる" do
