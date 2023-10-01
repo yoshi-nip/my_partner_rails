@@ -14,7 +14,6 @@ RSpec/ExampleLength:
 ## 開発途中での記述。開発が進み、モックが必要なくなれば解除する。
 RSpec/AnyInstance:
   Enabled: false
-
 AllCops:
   TargetRubyVersion: 3.2
   SuggestExtensions: false
