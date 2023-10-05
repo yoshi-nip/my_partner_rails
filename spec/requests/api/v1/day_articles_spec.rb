@@ -2,7 +2,10 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::DayArticles", type: :request do
   describe "GET /index" do
-    subject { get(api_v1_day_articles_path) }
+    subject { get(api_v1_day_articles_path, headers:) }
+
+    let!(:user) { create(:user) }
+    let!(:headers) { user.create_new_auth_token }
 
     context "/api/v1/day_articlesのルートの時" do
       before do
@@ -32,9 +35,11 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
   end
 
   describe "GET/show" do
-    subject { get(api_v1_day_article_path(day_article_id)) }
+    subject { get(api_v1_day_article_path(day_article_id), headers:) }
 
-    let(:day_article) { create(:day_article) }
+    let(:day_article) { create(:day_article, user:) }
+    let!(:user) { create(:user) }
+    let!(:headers) { user.create_new_auth_token }
 
     context "/api/v1/day_articles/:idのルートの時(正しい値)" do
       let(:day_article_id) { day_article.id }
@@ -70,18 +75,17 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
   end
 
   describe "POST/create" do
-    subject { post(api_v1_day_articles_path, params: day_articles_params) }
+    subject { post(api_v1_day_articles_path, params: day_articles_params, headers:) }
 
-    let!(:current_user) { create(:user) }
-
-    before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+    let!(:user) { create(:user) }
+    let!(:headers) { user.create_new_auth_token }
 
     context "ログインユーザーの時、適切なパラメータをもとに記事が作成される" do
       let(:day_articles_params) { { day_article: attributes_for(:day_article) } }
       it "現在のユーザをもとに記事が作成できる" do
         subject
         res = JSON.parse(response.body)
-        expect(DayArticle.last.user_id).to eq(current_user.id)
+        expect(DayArticle.last.user_id).to eq(user.id)
         expect(response).to have_http_status(:created)
         expect(res["day"]).to eq day_articles_params[:day_article][:day].strftime("%Y-%m-%d")
         expect(res["body"]).to eq day_articles_params[:day_article][:body]
@@ -97,12 +101,11 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
   end
 
   describe "PUT /update" do
-    subject { put(api_v1_day_article_path(day_article), params: day_articles_params) }
+    subject { put(api_v1_day_article_path(day_article), params: day_articles_params, headers:) }
 
-    let!(:day_article) { create(:day_article, user: current_user) }
-    let!(:current_user) { create(:user) }
-
-    before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+    let!(:day_article) { create(:day_article, user:) }
+    let!(:user) { create(:user) }
+    let!(:headers) { user.create_new_auth_token }
 
     context "ログインユーザーの時、適切なパラメータをもとに記事が更新される" do
       let(:day_articles_params) { { day_article: { body: "新しいテキスト" } } }
@@ -125,12 +128,11 @@ RSpec.describe "Api::V1::DayArticles", type: :request do
   end
 
   describe "DELETE /destroy" do
-    subject { delete(api_v1_day_article_path(day_article)) }
+    subject { delete(api_v1_day_article_path(day_article), headers:) }
 
-    let!(:day_article) { create(:day_article, user: current_user) }
-    let!(:current_user) { create(:user) }
-
-    before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+    let!(:day_article) { create(:day_article, user:) }
+    let(:user) { create(:user) }
+    let!(:headers) { user.create_new_auth_token }
 
     context "ログインユーザーの場合、記事が削除される" do
       it "現在のユーザをもとに記事が削除される" do
