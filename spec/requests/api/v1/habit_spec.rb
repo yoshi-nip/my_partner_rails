@@ -108,19 +108,19 @@ RSpec.describe "Api::V1::Habits", type: :request do
     let!(:headers) { user.create_new_auth_token }
 
     context "ログインユーザーの時、適切なパラメータをもとに記事が更新される" do
-      let(:habits_params) { { habit: { body: "新しいテキスト" } } }
+      let(:habits_params) { { habit: { name: "新しい名前" } } }
 
       it "現在のユーザをもとに記事が更新できる" do
         subject
         res = JSON.parse(response.body)
         expect(response).to have_http_status(:ok)
-        expect(habit.name).not_to eq "新しいテキスト"
-        expect(res["body"]).to eq "新しいテキスト"
+        expect(habit.name).not_to eq "新しい名前"
+        expect(res["name"]).to eq "新しい名前"
       end
     end
 
     context "不適切なパラメータでリクエストを送った時" do
-      let(:habits_params) { { title: "新しいタイトル" } } # paramsの形式がおかしい
+      let(:habits_params) { { name: "新しい名前" } } # paramsの形式がおかしい
       it "エラーになる" do
         expect { subject }.to raise_error ActionController::ParameterMissing
       end
