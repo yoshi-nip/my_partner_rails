@@ -39,8 +39,6 @@ class Api::V1::MonthlyPromisesController < Api::V1::BaseApiController
 
     # Storong Parameter
     def monthly_promise_params
-      params.require(:monthly_promise).permit(:beginning_of_month, :body,:if_then_plan)
+      params.require(:monthly_promise).permit(:beginning_of_month, :body, :if_then_plan)
     end
-
-
 end
