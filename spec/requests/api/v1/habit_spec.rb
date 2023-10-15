@@ -14,6 +14,7 @@ RSpec.describe "Api::V1::Habits", type: :request do
       end
 
       it "httpステータスが正常である" do
+        binding.pry
         expect(response).to have_http_status(:ok)
       end
 
